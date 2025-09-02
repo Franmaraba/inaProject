@@ -1,0 +1,87 @@
+/* Container principal ocupa toda a tela */
+*{
+  margin: 0;
+}
+.tela-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* duas colunas */
+  gap: 0.5rem;
+  height: 100%;
+  padding: 0.5rem;
+  background-color: #17a4cf; /* Azul semelhante ao logo */
+}
+
+/* Estilo base para todos os textos */
+
+.coluna-esquerda, .coluna-direita {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* Textos individuais (pode personalizar cores se quiser) */
+.texto {
+  text-align:center;
+  margin-top: 50px;
+  font-size: 30px; /* Escala com a largura da tela */
+  max-width: 100%;
+  font-size: 20px;
+
+}
+
+.mensagem {
+  text-align: justify;
+  margin-top: 30px;
+  font-size: 50px;
+  color: #ffeb3b; /* Amarelo para destaque */
+  max-width: 100%;
+  margin-left: 8px;
+  
+}
+
+.cabeca-hino {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 4vw;
+  color: #f8f8f8;
+  text-decoration: underline;
+}
+
+.hino {
+  text-align:center;
+  font-size: 8vw;
+  color: #ffffff;
+
+}
+
+/* Tela de espera (quando não há texto) */
+.espera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.espera img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+/* Ajustes para dispositivos menores */
+@media (max-width: 1024px) {
+  .texto { font-size: 8vw; }
+  .mensagem { font-size: 7vw; }
+  .cabeca-hino { font-size: 6vw; }
+  .hino { font-size: 5.5vw; }
+
+}
+
+@media (max-width: 600px) {
+  .texto { font-size: 10vw; }
+  .mensagem { font-size: 9vw; }
+  .cabeca-hino { font-size: 8vw; }
+  .hino { font-size: 7vw; }
+}
