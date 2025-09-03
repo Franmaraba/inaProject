@@ -12,18 +12,22 @@ function App() {
           path="/"
           element={
             <div className="home-container">
-              <h1>INA bRAZIL</h1>
-              <img className="img-logo" src="INA.png" alt="logo" />
-              <h1>Painel de Mensagens</h1>
-              <p>Escolha o modo:</p>
+              <div className="home-container-filha">
+                <h1>INA BRASIL</h1>
+                <img className="img-logo" src="INA.png" alt="logo" />
+                <h1>Painel de Mensagens</h1>
+                <p>Escolha o modo:</p>
 
-              <Link className="btn btn-enviar" to="/enviar">
+                <Link className="btn btn-enviar" to="/enviar">
                 Enviar Mensagem
-              </Link>
+                </Link>
 
-              <Link className="btn btn-exibicao" to="/display">
+                <Link className="btn btn-exibicao" to="/display">
                 Tela de Exibição
-              </Link>
+                </Link>
+
+              </div>
+              
             </div>
           }
         />

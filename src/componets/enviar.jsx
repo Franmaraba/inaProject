@@ -1,116 +1,128 @@
 import { useState } from "react";
 import { db } from "../firebase/config";
 import { doc, setDoc } from "firebase/firestore";
-import { Router } from "react-router-dom";
+import "../CSS/enviarMensagem.css"; // import do CSS
 
 function EnviarMensagem() {
   const [t_biblical, setT_biblical] = useState("");
-  const [t_message,setT_message] = useState("");
-  const [h_hymn, setH_hymn] = useState("");
-  const [t_hymn, setT_hymn] = useState("");
+  const [t_message, setT_message] = useState("");
+  const [hymn_1, setHymn_1] = useState("");
+  const [hymn_2, setHymn_2] = useState("");
+  const [hymn_3, setHymn_3] = useState("");
+  const [hymn_4, setHymn_4] = useState("");
 
   async function handleEnviar() {
-    if (t_biblical.trim() === "") return;
-    await setDoc(doc(db, "SD", "textoBiblico"), {
-      content: t_biblical,
-    });
-    setT_biblical("");
+    if (t_biblical.trim() !== "") {
+      await setDoc(doc(db, "SD", "textoBiblico"), { content: t_biblical });
+      setT_biblical("");
+    }
 
-    if (t_message.trim() === "") return;
-    await setDoc(doc(db, "SD", "menssagemBiblica"), {
-      content: t_message,
-    });
-    setT_message("");
+    if (t_message.trim() !== "") {
+      await setDoc(doc(db, "SD", "mensagemBiblica"), { content: t_message });
+      setT_message("");
+    }
 
-    if (h_hymn.trim() === "") return;
-    await setDoc(doc(db, "SD", "cabeca-hino"), {
-      content: h_hymn,
-    });
-    setH_hymn("");
-
-    if (t_hymn.trim() === "") return;
-    await setDoc(doc(db, "SD", "hino"), {
-      h1: t_hymn,
-    });
-    setT_hymn("");
+    if (hymn_1 || hymn_2 || hymn_3 || hymn_4) {
+      await setDoc(doc(db, "SD", "hino"), {
+        hino1: hymn_1,
+        hino2: hymn_2,
+        hino3: hymn_3,
+        hino4: hymn_4,
+      });
+      setHymn_1("");
+      setHymn_2("");
+      setHymn_3("");
+      setHymn_4("");
+    }
   }
 
+  async function handleLimparTela() {
+    await setDoc(doc(db, "SD", "textoBiblico"), { content: "" });
+    await setDoc(doc(db, "SD", "mensagemBiblica"), { content: "" });
+    await setDoc(doc(db, "SD", "hino"), {
+      hino1: "",
+      hino2: "",
+      hino3: "",
+      hino4: "",
+    });
+
+    setT_biblical("");
+    setT_message("");
+    setHymn_1("");
+    setHymn_2("");
+    setHymn_3("");
+    setHymn_4("");
+  }
+
+
+
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>Enviar mensagem</h2>
-      <input
-        type="text"
-        value={t_biblical}
-        onChange={(e) => setT_biblical(e.target.value)}
-        placeholder="Digite o texto"
-        style={{
-          padding: "10em",
-          width: "50%",
-          borderRadius: "5px",
-          marginBottom: "2rem",
-        }}
-      />
+    <div className="container">
+      <div className="container-filha">
+        <h1>INA BRASIL</h1>
+        <img className="img-logo" src="/INA.png" alt="" />
+        <h2>Enviar mensagem</h2>
 
         <input
-        type="text"
-        value={t_message}
-        onChange={(e) => setT_message(e.target.value)}
-        placeholder="Digite sua mensagem"
-        style={{
-          padding: "10em",
-          width: "50%",
-          borderRadius: "5px",
-          marginBottom: "2rem",
-        }}
-      />
+          type="text"
+          value={t_biblical}
+          onChange={(e) => setT_biblical(e.target.value)}
+          placeholder="Digite o texto bíblico"
+          className="input"
+        />
+
+        <textarea
+          value={t_message}
+          onChange={(e) => setT_message(e.target.value)}
+          placeholder="Digite a leitura bíblica"
+          className="input"
+        />
 
         <input
-        type="text"
-        value={h_hymn}
-        onChange={(e) => setH_hymn(e.target.value)}
-        placeholder="Digite sua mensagem"
-        style={{
-          padding: "10em",
-          width: "50%",
-          borderRadius: "5px",
-          marginBottom: "2rem",
-        }}
-      />
+          type="text"
+          value={hymn_1}
+          onChange={(e) => setHymn_1(e.target.value)}
+          placeholder="Digite o Hino 1"
+          className="input"
+        />
 
-    <textarea
-        type="text"
-        value={t_hymn}
-        onChange={(e) => setT_hymn(e.target.value)}
-        placeholder="Digite sua mensagem"
-        style={{
-          padding: "10em",
-          width: "50%",
-          borderRadius: "5px",
-          marginBottom: "2rem",
-        }}
-      />
-      <br />
-      <button
-        onClick={handleEnviar}
-        style={{
-          padding: "0.8rem 2rem",
-          border: "none",
-          borderRadius: "8px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          fontWeight: "bold",
-        }}
-      >
-        Enviar
-      </button>
+        <input
+          type="text"
+          value={hymn_2}
+          onChange={(e) => setHymn_2(e.target.value)}
+          placeholder="Digite o Hino 2"
+          className="input"
+        />
+
+        <input
+          type="text"
+          value={hymn_3}
+          onChange={(e) => setHymn_3(e.target.value)}
+          placeholder="Digite o Hino 3"
+          className="input"
+        />
+
+        <input
+          type="text"
+          value={hymn_4}
+          onChange={(e) => setHymn_4(e.target.value)}
+          placeholder="Digite o Hino 4"
+          className="input"
+        />
+
+        <br />
+
+        <button onClick={handleEnviar} className="button">
+          Enviar
+        </button>
+        <br />
+
+        <button className="btn-limpar" onClick={handleLimparTela}>
+              Limpar Tela
+        </button>
+      </div>
+      
     </div>
-  );
-  return(
-    <Router>
-    <Routes>
-
-    </Routes>
-  </Router>
   );
 }
 
