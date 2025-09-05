@@ -12,31 +12,42 @@ function EnviarMensagem() {
   const [hymn_4, setHymn_4] = useState("");
 
   async function handleEnviar() {
-    if (t_biblical.trim() !== "") {
-      await setDoc(doc(db, "SD", "textoBiblico"), { content: t_biblical });
-      setT_biblical("");
-    }
 
-    if (t_message.trim() !== "") {
-      await setDoc(doc(db, "SD", "mensagemBiblica"), { content: t_message });
-      setT_message("");
-    }
+    try {
+      if (t_biblical.trim() !== "") {
+        await setDoc(doc(db, "SD", "textoBiblico"), { content: t_biblical });
+        setT_biblical("");
+      }
+  
+      if (t_message.trim() !== "") {
+        await setDoc(doc(db, "SD", "mensagemBiblica"), { content: t_message });
+        setT_message("");
+      }
+  
+      if (hymn_1 || hymn_2 || hymn_3 || hymn_4) {
+        await setDoc(doc(db, "SD", "hino"), {
+          hino1: hymn_1,
+          hino2: hymn_2,
+          hino3: hymn_3,
+          hino4: hymn_4,
+        });
+        setHymn_1("");
+        setHymn_2("");
+        setHymn_3("");
+        setHymn_4("");
+      }
 
-    if (hymn_1 || hymn_2 || hymn_3 || hymn_4) {
-      await setDoc(doc(db, "SD", "hino"), {
-        hino1: hymn_1,
-        hino2: hymn_2,
-        hino3: hymn_3,
-        hino4: hymn_4,
-      });
-      setHymn_1("");
-      setHymn_2("");
-      setHymn_3("");
-      setHymn_4("");
+      alert("✅ Mensagem enviados com sucesso!")
+      
+    } catch (error) {
+      console.error("Erro ao enviar", error)
+      alert("❌ Erro ao enviar a mensagem!")
     }
+    
   }
 
   async function handleLimparTela() {
+    try {
     await setDoc(doc(db, "SD", "textoBiblico"), { content: "" });
     await setDoc(doc(db, "SD", "mensagemBiblica"), { content: "" });
     await setDoc(doc(db, "SD", "hino"), {
@@ -52,6 +63,12 @@ function EnviarMensagem() {
     setHymn_2("");
     setHymn_3("");
     setHymn_4("");
+      alert("Tela limpa com sucesso!")
+    } catch (error) {
+      console.error("Erro ao limpar!", error);
+      alert("Erro ao limpar tela!");
+    }
+    
   }
 
 
